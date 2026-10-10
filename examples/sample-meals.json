@@ -1,0 +1,17 @@
+{"success":true,"code":200,"data":{"categories":[],"meals":{
+"M1":{"name":"巨无霸","currentPrice":"22.00"},
+"M2":{"name":"麦香鸡","currentPrice":"15.50"},
+"M3":{"name":"吉士汉堡包","currentPrice":"11.00"},
+"M4":{"name":"汉堡包","currentPrice":"9.00"},
+"M5":{"name":"中薯条","currentPrice":"13.50"},
+"M6":{"name":"可乐中杯","currentPrice":"9.50"},
+"M7":{"name":"麦乐鸡5块","currentPrice":"13.00"},
+"M8":{"name":"圆筒冰淇淋","currentPrice":"4.00"},
+"M9":{"name":"香芋派","currentPrice":"8.00"},
+"M10":{"name":"那么大鸡排","currentPrice":"19.50"},
+"M11":{"name":"双层吉士汉堡","currentPrice":"18.00"},
+"M12":{"name":"麦辣鸡腿汉堡","currentPrice":"19.00"},
+"M13":{"name":"板烧鸡腿堡","currentPrice":"19.00"},
+"M14":{"name":"小薯条","currentPrice":"8.00"},
+"M15":{"name":"脆薯饼","currentPrice":"7.00"}
+}}}

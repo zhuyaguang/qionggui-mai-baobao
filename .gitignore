@@ -1,0 +1,64 @@
+# ---- 敏感信息：绝不入库 ----
+*.token
+token.txt
+mcd-config.json
+.env
+.env.*
+
+# 运行时拉取的真实数据（含门店与实时价格，不入库）
+meals.json
+nutrition.txt
+data/
+runtime/
+*.local.json
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv/
+venv/
+ENV/
+env/
+
+# ---- 测试与覆盖率 ----
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- 输出产物 ----
+result.json
+result.csv
+out/
