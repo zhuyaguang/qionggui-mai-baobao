@@ -1,30 +1,79 @@
 # 发布到 SkillHub 指南
 
-> 穷鬼麦饱饱已**通过 SkillHub 本地预检**，只差账号认证这一步。
-> 本文档是完整的发布操作指引。
+> **当前状态：已成功提交发布，等待平台审核。**
 
-## 当前状态
+## 发布记录
 
-```
-$ skillhub publish skills/qionggui-mai-baobao --dry-run
-✓ Dry-run passed: qionggui-mai-baobao@1.0.0
-```
-
-| 检查项 | 状态 |
+| 项 | 值 |
 | --- | --- |
-| SKILL.md 元数据完整性 | ✅ 通过 |
-| 目录结构规范 | ✅ 通过 |
-| 打包预检 | ✅ 通过 |
-| 账号认证 | ❌ **需要你本人操作** |
+| 发布时间 | 2026-10-10 17:05 |
+| 技能标识 | `qionggui-mai-baobao@1.0.0` |
+| Platform skillId | `274491` |
+| 发布者 | `@user_33148e32`（userId=788025） |
+| 审核状态 | ⏳ 审核中（官方说明 1–3 个工作日） |
 
-## 为什么需要你本人操作
+发布命令与结果：
 
-SkillHub 规定：**发布 Skill 必须完成实名认证**（腾讯云人脸核身）。
-认证信息加密存储，仅用于身份核实。这一步无法由工具代劳。
+```bash
+$ skillhub publish skills/qionggui-mai-baobao \
+    --changelog "首个版本：在 20 元预算硬约束内，用实时菜单数据求解总热量最大的麦当劳套餐组合"
+✓ Published: skillId=274491 status=None
+```
+
+## 审核流水线
+
+提交后自动触发**三线并行安全审核**，全部通过才会上架：
+
+1. 内容合规过滤
+2. 科恩实验室深度漏洞扫描
+3. 云鼎实验室 AI 模型安全评估
+
+审核查询命令：
+
+```bash
+skillhub skill reports qionggui-mai-baobao --namespace user_33148e32
+skillhub skill evaluation qionggui-mai-baobao --namespace user_33148e32 --json
+```
+
+> 当前 `reports` 返回 `{}`（空对象）——说明报告中转已建立、
+> 审核尚未产出结论，属于**正常等待状态**。
+
+审核通过后，技能会出现在 https://skillhub.cn/skills/qionggui-mai-baobao
+并可在 WorkBuddy 技能入口搜索到。
 
 ---
 
-## 发布步骤
+## 本地使用（已可用）
+
+技能已同步安装到本机，**无需等审核即可在 WorkBuddy 中使用**：
+
+```
+~/.workbuddy/skills/qionggui-mai-baobao/
+├── SKILL.md
+├── scripts/qionggui_solver.py
+└── references/{algorithm,nutrition-mapping,mcp-tools}.md
+```
+
+直接在对话里说「20 元吃饱麦当劳」即可触发。
+
+---
+
+## 后续版本更新
+
+修改 SKILL.md 后递增 `version`，重新发布：
+
+```bash
+# 1. 改 SKILL.md 里的 version（如 1.0.1）
+# 2. 重新发布
+skillhub publish skills/qionggui-mai-baobao \
+    --changelog "本次改了什么"
+```
+
+> 建议每次改动都递增版本号，便于平台做版本追溯与回滚。
+
+---
+
+## 原始操作指引（已完成，留档）
 
 ### 第 1 步：注册并实名认证
 
@@ -40,36 +89,23 @@ SkillHub 规定：**发布 Skill 必须完成实名认证**（腾讯云人脸核
 
 ```bash
 skillhub login --key skh_你的Token
-```
-
-验证登录成功：
-
-```bash
-skillhub auth whoami
+skillhub auth whoami   # 验证
 ```
 
 ### 第 4 步：发布
 
 ```bash
 cd D:/qionggui-mai-baobao
-skillhub publish skills/qionggui-mai-baobao \
-    --changelog "首个版本：20 元预算内求解热量最大的麦当劳套餐组合"
+skillhub publish skills/qionggui-mai-baobao --changelog "..."
 ```
 
 ### 第 5 步：等待审核
 
-- 提交后触发**三线并行安全审核**：
-  1. 内容合规过滤
-  2. 科恩实验室深度漏洞扫描
-  3. 云鼎实验室 AI 模型安全评估
-
-- 全部通过后**自动上架**
+见上文「审核流水线」。
 
 ---
 
 ## 备选方案：网页发布
-
-不想用命令行的话，也可以走官网：
 
 1. 登录 https://skillhub.cn
 2. 进入 https://skillhub.cn/dashboard/publish
@@ -77,7 +113,7 @@ skillhub publish skills/qionggui-mai-baobao \
 4. 填写元信息（页面提供 AI 辅助生成）
 5. 提交审核
 
-> 打包 zip 命令：
+> 打包 zip：
 > ```bash
 > cd skills && zip -r ../qionggui-mai-baobao.zip qionggui-mai-baobao
 > ```
@@ -110,9 +146,10 @@ license: MIT
 ---
 ```
 
-## 审核要点自查
+> ⚠️ 字段名是**驼峰** `displayName`，不是 `display_name`。
+> 写成下划线形式会在预检时报「缺少 displayName」。
 
-SkillHub 的安全审核重点关注以下维度，本项目均已满足：
+## 审核要点自查
 
 | 审核维度 | 本项目情况 |
 | --- | --- |
@@ -125,9 +162,7 @@ SkillHub 的安全审核重点关注以下维度，本项目均已满足：
 | 可疑编码/混淆 | 全部代码带完整中文注释，无混淆 |
 | 敏感信息 | 配置文件仅用 `${MCD_MCP_TOKEN}` 占位符，无私钥 |
 
-## TRACE 评测参考
-
-SkillHub 从五个维度评估技能质量，本项目对应情况：
+## TRACE 评测对照
 
 | 维度 | 本项目 |
 | --- | --- |
@@ -139,12 +174,58 @@ SkillHub 从五个维度评估技能质量，本项目对应情况：
 
 ---
 
+## 安装 SkillHub CLI（Windows 踩坑记录）
+
+Windows + Git Bash 环境下安装有三个连环坑，均已解决：
+
+### 坑 1：证书吊销检查离线
+
+```
+curl: (35) schannel: next InitializeSecurityContext failed:
+CRYPT_E_REVOCATION_OFFLINE (0x80092013)
+```
+
+**解决**：
+- git 用 `git config http.sslBackend openssl`
+- curl 加 `--ssl-no-revoke`
+
+### 坑 2：tar 把 `C:\` 当远程主机
+
+```
+tar: Cannot connect to C: resolve failed
+```
+
+**解决**：`tar --force-local`，或设 `TMPDIR=/tmp` 用 Unix 风格路径。
+
+### 坑 3：包装脚本传参被二次转义
+
+用 bash 包一层 tar 反而引入 `C\:\\Users\...` 转义问题。
+
+**最终有效方案**：
+
+```bash
+# 只包装 curl（不包装 tar），并设 TMPDIR
+mkdir -p /tmp/shbin
+cat > /tmp/shbin/curl << 'EOF'
+#!/usr/bin/env bash
+exec /c/WINDOWS/system32/curl.exe "$@" --ssl-no-revoke
+EOF
+chmod +x /tmp/shbin/curl
+
+export TMPDIR=/tmp
+export PATH=/tmp/shbin:$PATH
+bash install.sh --cli-only
+```
+
+安装位置：`~/.local/bin/skillhub`（版本 2026.8.5）
+
+---
+
 ## 常见问题
 
 **Q：发布失败怎么办？**
 
-运行 `skillhub publish` 时会返回具体错误。常见原因：
-
+常见原因：
 - 未登录或 Token 过期 → `skillhub login --key skh_xxx` 重新登录
 - SKILL.md 格式错误 → 先跑 `--dry-run` 本地预检
 - 缺少必需字段 → 检查 `name` / `slug` / `displayName` / `description` / `version`
@@ -153,19 +234,19 @@ SkillHub 从五个维度评估技能质量，本项目对应情况：
 
 可以。CLI 支持 `--visibility` 参数（`public` / `unlisted` / `private` / `org`）。
 
-**Q：发布后还能改吗？**
+**Q：审核要多久？**
 
-可以。修改 SKILL.md 后递增 `version`，重新 `skillhub publish` 即可。
-建议每次改动都递增版本号。
+官方说明 1–3 个工作日。
 
 ---
 
-## 与本项目的其他发布渠道的关系
+## 与本项目其他发布渠道的关系
 
 | 渠道 | 目的 | 状态 |
 | --- | --- | --- |
 | **GitHub** | 参赛作品提交（活动要求） | ✅ 已推送 |
-| **SkillHub** | 让 WorkBuddy 用户能搜到并安装 | ⏳ 待你认证后发布 |
+| **SkillHub** | 让 WorkBuddy 用户能搜到并安装 | ⏳ 已提交，审核中 |
+| **本地技能目录** | 自己立刻可用 | ✅ 已安装 |
 
-两个渠道互不冲突：GitHub 是参赛必需的公开仓库，
-SkillHub 是让技能真正被用户使用的分发渠道。
+三个渠道互不冲突：GitHub 是参赛必需的公开仓库，
+SkillHub 是面向全网用户的分发渠道，本地目录让你自己马上能用。
