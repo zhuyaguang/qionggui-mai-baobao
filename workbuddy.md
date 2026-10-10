@@ -198,3 +198,8 @@ python skills/qionggui-mai-baobao/scripts/qionggui_solver.py \
 
 本项目使用腾讯 WorkBuddy 完成需求分析、架构设计、代码编写、
 缺陷修复与文档撰写。日常对话上下文如上。
+
+我把与WorkBuddy  对话连接分享出来
+
+【WorkBuddy】开发麦当劳20元穷鬼套餐MCP技能
+https://workbuddy.link/p/iePO34GOeVDhp1gGZJxz5Y?ext2=copy_link

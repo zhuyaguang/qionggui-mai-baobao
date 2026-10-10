@@ -1,5 +1,7 @@
 ---
 name: qionggui-mai-baobao
+slug: qionggui-mai-baobao
+displayName: 穷鬼麦饱饱
 description: >-
   穷鬼麦饱饱 —— 20 元吃饱麦当劳的穷鬼套餐推荐官。在预算上限内，从麦当劳门店
   实时菜单中求解总热量最大的套餐组合，并给出可直接下单的商品清单。
@@ -7,6 +9,17 @@ description: >-
   「热量最高的麦当劳组合」「穷鬼麦饱饱」「麦当劳薅羊毛」「麦当劳怎么点最划算」
   「学生党麦当劳」「20块能吃啥」等意图时使用本 Skill。
   本 Skill 依赖麦当劳 MCP（mcd-mcp）提供门店、菜单、营养与价格能力。
+version: 1.0.0
+category: 生活服务
+platforms:
+  - workbuddy
+tags:
+  - 麦当劳
+  - 省钱
+  - 套餐推荐
+  - 热量管理
+  - 组合优化
+  - MCP
 license: MIT
 ---
 
